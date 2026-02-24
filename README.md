@@ -1,0 +1,138 @@
+# 🤖 AI-Powered Support Assistant
+
+A full-stack AI Support Assistant built with **React**, **Node.js (Express)**, and **SQLite**, leveraging the **Gemini 2.5 Flash** model for intelligent, document-grounded responses.
+
+---
+
+## 🎯 Project Overview
+This project is an AI-driven support system designed to answer user queries based **strictly** on a provided knowledge base (`docs.json`). It maintains conversation context across sessions and tracks token usage, providing a production-like support experience.
+
+### Key Features
+- **Strict Document Grounding**: Answers only based on the provided FAQ.
+- **Persistent Chat History**: All conversations and sessions are stored in an SQLite database.
+- **Smart Session Handling**: Remembers your chat even after a page refresh.
+- **Token Tracking**: Persistent tracking of AI token usage per session.
+- **Rate Limiting**: Integrated security to prevent API abuse.
+- **Modern UI**: Built with Tailwind CSS, Lucide icons, and professional dark-themed aesthetics.
+
+---
+
+## 🧠 Tech Stack
+- **Frontend**: React.js, Tailwind CSS, Vite, Lucide React, Shadcn UI.
+- **Backend**: Node.js, Express.js.
+- **Database**: SQLite3.
+- **LLM**: Google Gemini 2.5 Flash.
+
+---
+
+## 📦 Project Structure
+```text
+/
+├── Backend/                 # Server & API
+├── Frontend/                # React UI
+└── Submission_Files/        # Submission Documents
+    ├── ASIGNMENT_REPORT.md  # Detailed Project Report (A-Z)
+    └── SETUP_AND_DEPLOYMENT.md
+```
+
+---
+
+## 🛠️ Setup & Installation
+
+### 1. Prerequisites
+- Node.js (v18+)
+- npm or yarn
+- Google Gemini API Key ([Get it here](https://aistudio.google.com/app/apikey))
+
+### 2. Backend Setup
+1. Navigate to the `Backend` folder:
+   ```bash
+   cd Backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file from the example:
+   ```bash
+   copy .env.example .env
+   ```
+4. Open `.env` and add your **GEMINI_API_KEY**.
+5. Start the server:
+   ```bash
+   node server.js
+   ```
+
+### 3. Frontend Setup
+1. Navigate to the `Frontend` folder:
+   ```bash
+   cd Frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Access the application at `http://localhost:8080`.
+
+---
+
+## 📖 Knowledge Base (`docs.json`)
+The AI follows a **strict rule**: if an answer isn't in this file, it replies with: *"Sorry, I don’t have information about that."*
+
+**Topics currently covered:**
+- Password Resets
+- Refund Policies (7-day window)
+- Account Creation
+- Worldwide Shipping
+- Pricing Plans (Free, Pro, Enterprise)
+
+---
+
+## 🗄️ Database Schema (SQLite)
+
+### ✅ `sessions` table
+| Column | Type | Description |
+|---|---|---|
+| id | TEXT (PK) | Unique Session ID (UUID) |
+| created_at | DATETIME | Time of session creation |
+| updated_at | DATETIME | Last activity time |
+
+### ✅ `messages` table
+| Column | Type | Description |
+|---|---|---|
+| id | INTEGER (PK) | Auto-increment ID |
+| session_id | TEXT (FK) | Reference to sessions table |
+| role | TEXT | "user" or "assistant" |
+| content | TEXT | Message text |
+| tokens_used | INTEGER | Tokens consumed by the AI |
+| created_at | DATETIME | Timestamp |
+
+---
+
+## 🚀 API Documentation
+
+### `POST /api/chat`
+Handles AI reasoning and storage.
+- **Request Body**: `{ "sessionId": "UUID", "message": "Your text" }`
+- **Response**: `{ "reply": "AI Text...", "tokensUsed": 150 }`
+
+### `GET /api/conversations/:sessionId`
+Fetches full history for a session.
+
+### `GET /api/sessions`
+Lists all historical chats for the sidebar.
+
+---
+
+## 🎯 Assignment Compliance Checklist
+- [x] React & Node.js Implementation
+- [x] SQLite Persistent Storage
+- [x] Strict Document-Based Answering
+- [x] Session-wise Context Management (Last 5 pairs)
+- [x] Token Usage Tracking
+- [x] Rate Limiting (100 req / 15 min)
+- [x] Clean Error Handling

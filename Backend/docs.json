@@ -1,0 +1,30 @@
+[
+    {
+        "title": "General Greeting & Welcome",
+        "content": "When a user says 'hi', 'hello', or greets you, respond warmly: 'Hello! I am your AI Support Assistant. I can help you with password resets, refunds, account creation, shipping information, and pricing plans. How can I help you today?'"
+    },
+    {
+        "title": "Reset Password",
+        "content": "Users can reset password from Settings > Security. Click on 'Forgot Password' and follow the link sent to your email."
+    },
+    {
+        "title": "Refund Policy",
+        "content": "Refunds are allowed within 7 days of purchase. Please contact support to initiate a refund request."
+    },
+    {
+        "title": "Account Creation",
+        "content": "You can create an account by clicking the 'Sign Up' button on the homepage and providing your details."
+    },
+    {
+        "title": "Shipping Info",
+        "content": "We ship worldwide. Standard shipping takes 5-10 business days depending on your location."
+    },
+    {
+        "title": "Pricing Plans",
+        "content": "We have Free, Pro ($29/month), and Enterprise plans. Pro includes advanced features and priority chat access."
+    },
+    {
+        "title": "AI Services Provided",
+        "content": "Our AI services provide instant customer support, automated FAQ answering, and help with common business tasks like checking policies for refunds, shipping, and account management."
+    }
+]

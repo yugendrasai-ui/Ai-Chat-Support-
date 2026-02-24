@@ -1,0 +1,10 @@
+node_modules/
+.env
+*.local
+.DS_Store
+dist/
+Backend/db/database.sqlite
+Backend/db/*.sqlite
+Backend/db/*.sqlite-journal
+Submission_Files/*.pdf
+Documentation/*.pdf
