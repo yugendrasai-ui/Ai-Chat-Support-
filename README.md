@@ -30,9 +30,8 @@ This project is an AI-driven support system designed to answer user queries base
 /
 ├── Backend/                 # Server & API
 ├── Frontend/                # React UI
-└── Submission_Files/        # Submission Documents
-    ├── ASIGNMENT_REPORT.md  # Detailed Project Report (A-Z)
-    └── SETUP_AND_DEPLOYMENT.md
+|----README/
+|----Project_Details
 ```
 
 ---
