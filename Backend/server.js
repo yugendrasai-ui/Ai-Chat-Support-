@@ -4,11 +4,18 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
+const fs = require('fs');
 const path = require('path');
 const chatRoutes = require('./routes/chat');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Ensure DB directory exists
+const dbDir = path.join(__dirname, 'db');
+if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+}
 
 // Rate Limiting
 const limiter = rateLimit({
