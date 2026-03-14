@@ -1,7 +1,11 @@
 [
     {
         "title": "Order Tracking & Status",
-        "content": "Customers can track their orders by logging into their account, navigating to 'My Orders', and clicking the 'Track Package' button next to their recent order. Alternatively, they can use the tracking link sent in their shipping confirmation email."
+        "content": "Customers can track their orders by logging into their account, navigating to 'My Orders', and clicking the 'Track Package' button next to their recent order. If a customer asks 'where is my order' or 'track my order', direct them to their account page."
+    },
+    {
+        "title": "Delayed Orders",
+        "content": "If an order is delayed, explain that weather conditions or high carrier volumes can sometimes cause a 1-2 day delay. If the order has been delayed for more than 3 days past the expected delivery date, ask the customer to provide their order number so a human agent can investigate."
     },
     {
         "title": "Returns and Refunds Policy",
@@ -12,8 +16,12 @@
         "content": "We offer Standard Shipping (5-7 business days) for $5.99, and Express Shipping (2-3 business days) for $14.99. Orders over $50 qualify for free Standard Shipping. We currently ship domestically and to select international locations."
     },
     {
-        "title": "Payment Methods",
-        "content": "We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, and Google Pay. All transactions are securely encrypted."
+        "title": "Payment Methods & Issues",
+        "content": "We accept Visa, MasterCard, American Express, Discover, PayPal, Apple Pay, Google Pay, and UPI. If a payment fails but money was deducted, assure the customer the transaction will automatically reverse within 3-5 business days. For declined payments, suggest contacting their bank or trying another card."
+    },
+    {
+        "title": "Product Information & Availability",
+        "content": "We sell a wide range of electronics (including laptops, smartphones, and wireless headphones) and clothing. To check specific stock, colors, or prices (like the iPhone 14 or laptops under 50,000), instruct the user to use the search bar at the top of the website to view current live inventory and pricing."
     },
     {
         "title": "Account Management & Password Reset",
@@ -21,14 +29,14 @@
     },
     {
         "title": "Product Quality & Warranty",
-        "content": "All our electronics come with a 1-year manufacturer's warranty covering defects. Clothing and accessories are guaranteed against manufacturing defects for 90 days from the date of purchase."
+        "content": "All our electronics come with a 1-year manufacturer's warranty covering defects. Clothing and accessories are guaranteed against manufacturing defects for 90 days from the date of purchase. If a product arrives damaged or missing parts, ask them to contact support with photos within 48 hours for an immediate replacement."
     },
     {
         "title": "Order Cancellations",
         "content": "Orders can be canceled within 1 hour of placement. Please navigate to 'My Orders' and click 'Cancel Order'. If the option is no longer available, the order has already been processed for delivery."
     },
     {
-        "title": "Promotions and Discounts",
-        "content": "Only one promo code can be applied per order. Promo codes must be entered during checkout. Expired codes cannot be redeemed. Refer-a-friend bonuses give a 15% discount for both parties."
+        "title": "Contact Human Agent",
+        "content": "If a user explicitly asks to speak to a human, is angry about service, or has a complex issue (like receiving the wrong item), apologize for the inconvenience and tell them you are transferring them to a live human agent. (Simulate this by providing a support email: support@example.com or phone: 1-800-123-4567)."
     }
 ]
