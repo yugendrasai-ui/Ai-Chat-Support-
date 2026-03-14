@@ -24,6 +24,27 @@ router.post('/chat', async (req, res) => {
     }
 
     try {
+        // 0. Hardcode simple greetings to prevent the AI from hallucinating policies
+        const lowerMessage = message.trim().toLowerCase();
+        if (['hi', 'hello', 'hey', 'hi there', 'hello there', 'hii', 'hiii'].includes(lowerMessage)) {
+            const reply = "Hi, I’m your AI assistant. I can help you with orders, products, or returns. Feel free to ask!";
+
+            // Store greeting in DB for continuity
+            await db.run(
+                `INSERT OR IGNORE INTO sessions (id, created_at, updated_at) VALUES (?, datetime('now'), datetime('now'))`,
+                [sessionId]
+            );
+            await db.run(
+                `INSERT INTO messages (session_id, role, content, tokens_used, created_at) VALUES (?, 'user', ?, 0, datetime('now'))`,
+                [sessionId, message]
+            );
+            await db.run(
+                `INSERT INTO messages (session_id, role, content, tokens_used, created_at) VALUES (?, 'assistant', ?, 0, datetime('now'))`,
+                [sessionId, reply]
+            );
+            return res.json({ reply, tokensUsed: 0 });
+        }
+
         // 1. Ensure session exists
         await db.run(
             `INSERT OR IGNORE INTO sessions (id, created_at, updated_at) VALUES (?, datetime('now'), datetime('now'))`,
