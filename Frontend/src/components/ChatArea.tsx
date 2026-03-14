@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Send, User as UserIcon } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   role: "user" | "assistant";
@@ -81,12 +83,18 @@ const ChatArea = ({ messages, isLoading, onSendMessage }: ChatAreaProps) => {
 
               {/* Bubble */}
               <div
-                className={`max-w-[75%] px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${msg.role === "user"
+                className={`max-w-[75%] px-4 py-3 text-sm leading-relaxed ${msg.role === "user"
                   ? "bg-chat-user-bubble text-chat-user-text rounded-2xl rounded-tr-sm"
-                  : "bg-chat-assistant-bubble text-chat-assistant-text rounded-2xl rounded-tl-sm"
+                  : "bg-chat-assistant-bubble text-chat-assistant-text rounded-2xl rounded-tl-sm prose prose-sm prose-invert max-w-none"
                   }`}
               >
-                {msg.content}
+                {msg.role === "assistant" ? (
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {msg.content}
+                  </ReactMarkdown>
+                ) : (
+                  <span className="whitespace-pre-wrap">{msg.content}</span>
+                )}
               </div>
             </div>
           ))}
