@@ -85,7 +85,7 @@ const ChatArea = ({ messages, isLoading, onSendMessage }: ChatAreaProps) => {
               <div
                 className={`max-w-[75%] px-4 py-3 text-sm leading-relaxed ${msg.role === "user"
                   ? "bg-chat-user-bubble text-chat-user-text rounded-2xl rounded-tr-sm"
-                  : "bg-chat-assistant-bubble text-chat-assistant-text rounded-2xl rounded-tl-sm prose prose-sm prose-invert max-w-none"
+                  : "bg-chat-assistant-bubble text-chat-assistant-text rounded-2xl rounded-tl-sm prose prose-sm prose-p:leading-relaxed prose-strong:text-foreground prose-strong:font-bold prose-ul:my-1 prose-li:my-0.5 max-w-none"
                   }`}
               >
                 {msg.role === "assistant" ? (
