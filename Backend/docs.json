@@ -1,9 +1,5 @@
 [
     {
-        "title": "General Greeting & Welcome",
-        "content": "When a user says 'hi', 'hello', or greets you, respond warmly: 'Hello! I am your E-commerce AI Support Assistant. I can help you with order tracking, returns and refunds, shipping information, product inquiries, and account management. How can I assist you today?'"
-    },
-    {
         "title": "Order Tracking & Status",
         "content": "Customers can track their orders by logging into their account, navigating to 'My Orders', and clicking the 'Track Package' button next to their recent order. Alternatively, they can use the tracking link sent in their shipping confirmation email."
     },
