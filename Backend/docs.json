@@ -1,30 +1,38 @@
 [
     {
         "title": "General Greeting & Welcome",
-        "content": "When a user says 'hi', 'hello', or greets you, respond warmly: 'Hello! I am your AI Support Assistant. I can help you with password resets, refunds, account creation, shipping information, and pricing plans. How can I help you today?'"
+        "content": "When a user says 'hi', 'hello', or greets you, respond warmly: 'Hello! I am your E-commerce AI Support Assistant. I can help you with order tracking, returns and refunds, shipping information, product inquiries, and account management. How can I assist you today?'"
     },
     {
-        "title": "Reset Password",
-        "content": "Users can reset password from Settings > Security. Click on 'Forgot Password' and follow the link sent to your email."
+        "title": "Order Tracking & Status",
+        "content": "Customers can track their orders by logging into their account, navigating to 'My Orders', and clicking the 'Track Package' button next to their recent order. Alternatively, they can use the tracking link sent in their shipping confirmation email."
     },
     {
-        "title": "Refund Policy",
-        "content": "Refunds are allowed within 7 days of purchase. Please contact support to initiate a refund request."
+        "title": "Returns and Refunds Policy",
+        "content": "We offer a 30-day return policy for all unused items in their original packaging. Once we receive the returned item, refunds will be processed within 5-7 business days to the original payment method. Final sale and clearance items are not eligible for return."
     },
     {
-        "title": "Account Creation",
-        "content": "You can create an account by clicking the 'Sign Up' button on the homepage and providing your details."
+        "title": "Shipping Information",
+        "content": "We offer Standard Shipping (5-7 business days) for $5.99, and Express Shipping (2-3 business days) for $14.99. Orders over $50 qualify for free Standard Shipping. We currently ship domestically and to select international locations."
     },
     {
-        "title": "Shipping Info",
-        "content": "We ship worldwide. Standard shipping takes 5-10 business days depending on your location."
+        "title": "Payment Methods",
+        "content": "We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, and Google Pay. All transactions are securely encrypted."
     },
     {
-        "title": "Pricing Plans",
-        "content": "We have Free, Pro ($29/month), and Enterprise plans. Pro includes advanced features and priority chat access."
+        "title": "Account Management & Password Reset",
+        "content": "To reset a password, users should go to the login page, click 'Forgot Password', and follow the instructions sent to their registered email address. Users can update their shipping and billing addresses in the 'Account Settings' page."
     },
     {
-        "title": "AI Services Provided",
-        "content": "Our AI services provide instant customer support, automated FAQ answering, and help with common business tasks like checking policies for refunds, shipping, and account management."
+        "title": "Product Quality & Warranty",
+        "content": "All our electronics come with a 1-year manufacturer's warranty covering defects. Clothing and accessories are guaranteed against manufacturing defects for 90 days from the date of purchase."
+    },
+    {
+        "title": "Order Cancellations",
+        "content": "Orders can be canceled within 1 hour of placement. Please navigate to 'My Orders' and click 'Cancel Order'. If the option is no longer available, the order has already been processed for delivery."
+    },
+    {
+        "title": "Promotions and Discounts",
+        "content": "Only one promo code can be applied per order. Promo codes must be entered during checkout. Expired codes cannot be redeemed. Refer-a-friend bonuses give a 15% discount for both parties."
     }
 ]
