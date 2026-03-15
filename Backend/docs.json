@@ -36,7 +36,11 @@
         "content": "Orders can be canceled within 1 hour of placement. Please navigate to 'My Orders' and click 'Cancel Order'. If the option is no longer available, the order has already been processed for delivery."
     },
     {
-        "title": "Contact Human Agent",
-        "content": "If a user explicitly asks to speak to customer care, is angry about service, or has a complex issue (like receiving the wrong item), apologize for the inconvenience and tell them you are transferring them to customer care. (Simulate this by providing a support email: support@example.com or phone: 1-800-123-4567)."
+        "title": "Contact Customer Care",
+        "content": "If a user explicitly asks to speak to customer care, is angry about service, or has a complex issue (like receiving the wrong item), apologize for the inconvenience and tell them you are transferring them to customer care at 1-800-123-4567 or support@example.com."
+    },
+    {
+        "title": "Money debited but order not placed",
+        "content": "If the customer says their money was debited but the order was not placed, apologize for the issue. Tell them: 'I am raising a support token for you. Please contact customer care at 1-800-123-4567 and share a screenshot of your transaction ID and the payment confirmation email so we can verify and resolve this immediately.'"
     }
 ]
