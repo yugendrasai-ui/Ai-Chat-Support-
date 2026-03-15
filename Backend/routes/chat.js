@@ -2,18 +2,24 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const OpenAI = require('openai');
 
 // Load docs.json
 const docsPath = path.join(__dirname, '../docs.json');
 const docs = JSON.parse(fs.readFileSync(docsPath, 'utf8'));
 
-// Initialize Gemini
-if (!process.env.GEMINI_API_KEY) {
-    console.error('CRITICAL: GEMINI_API_KEY is not set in .env file');
+// Initialize OpenRouter
+if (!process.env.OPENROUTER_API_KEY) {
+    console.error('CRITICAL: OPENROUTER_API_KEY is not set in .env file');
 }
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const openai = new OpenAI({
+    baseURL: "https://openrouter.ai/api/v1",
+    apiKey: process.env.OPENROUTER_API_KEY,
+    defaultHeaders: {
+        "HTTP-Referer": "http://localhost:3000", // Optional, for OpenRouter rankings
+        "X-Title": "E-commerce AI Support", // Optional
+    }
+});
 
 router.post('/chat', async (req, res) => {
     const { sessionId, message } = req.body;
@@ -82,11 +88,17 @@ Respond to the User naturally while adhering 100% to the GROUNDING rules above.
 User: ${message}
 Assistant:`;
 
-        // 4. Call Gemini
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const reply = response.text().trim();
-        const tokensUsed = response.usageMetadata?.totalTokenCount || 0;
+        // 4. Call OpenRouter
+        const completion = await openai.chat.completions.create({
+            model: "google/gemini-2.0-flash-exp:free",
+            messages: [
+                { role: "system", content: prompt.split('GROUNDING rules above.')[0] + 'GROUNDING rules above.' },
+                { role: "user", content: message }
+            ],
+        });
+
+        const reply = completion.choices[0].message.content.trim();
+        const tokensUsed = completion.usage?.total_tokens || 0;
 
         // 5. Store messages in DB
         await db.run(
