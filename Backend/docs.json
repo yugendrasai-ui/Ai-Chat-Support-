@@ -5,7 +5,7 @@
     },
     {
         "title": "Delayed Orders",
-        "content": "If an order is delayed, explain that weather conditions or high carrier volumes can sometimes cause a 1-2 day delay. If the order has been delayed for more than 3 days past the expected delivery date, ask the customer to provide their order number so a human agent can investigate."
+        "content": "If an order is delayed, explain that weather conditions or high carrier volumes can sometimes cause a 1-2 day delay. If the order has been delayed for more than 3 days past the expected delivery date, ask the customer to provide their order number so customer care can investigate."
     },
     {
         "title": "Returns and Refunds Policy",
@@ -37,6 +37,6 @@
     },
     {
         "title": "Contact Human Agent",
-        "content": "If a user explicitly asks to speak to a human, is angry about service, or has a complex issue (like receiving the wrong item), apologize for the inconvenience and tell them you are transferring them to a live human agent. (Simulate this by providing a support email: support@example.com or phone: 1-800-123-4567)."
+        "content": "If a user explicitly asks to speak to customer care, is angry about service, or has a complex issue (like receiving the wrong item), apologize for the inconvenience and tell them you are transferring them to customer care. (Simulate this by providing a support email: support@example.com or phone: 1-800-123-4567)."
     }
 ]
