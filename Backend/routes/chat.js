@@ -90,9 +90,9 @@ Assistant:`;
 
         // 4. Call OpenRouter
         const completion = await openai.chat.completions.create({
-            model: "google/gemini-2.0-flash-exp:free",
+            model: "meta-llama/llama-3-8b-instruct",
             messages: [
-                { role: "system", content: prompt.split('GROUNDING rules above.')[0] + 'GROUNDING rules above.' },
+                { role: "system", content: prompt.split('### CURRENT TASK:')[0].trim() },
                 { role: "user", content: message }
             ],
         });
