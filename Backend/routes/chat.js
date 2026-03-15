@@ -71,23 +71,15 @@ Your goal is to provide accurate, helpful, and sophisticated support. Respond in
 4. **NO HALLUCINATION:** Do not invent prices or specific product details not listed in the knowledge base.
 
 ### KNOWLEDGE BASE:
-\${JSON.stringify(docs, null, 2)}
+${JSON.stringify(docs, null, 2)}
 
 ### CONVERSATION HISTORY:
-\${sortedHistory.map(m => \`\${m.role === 'user' ? 'User' : 'Assistant'}: \${m.content}\`).join('\\n')}
+${sortedHistory.map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n')}
 
 ### CURRENT TASK:
 Respond to the User naturally while adhering 100% to the GROUNDING rules above.
 
-User: \${message}
-Assistant:`;e.
-
-### CONVERSATION HISTORY:
-\${sortedHistory.map(m => \`\${m.role === 'user' ? 'User' : 'Assistant'}: \${m.content}\`).join('\\n')}
-
-### CURRENT USER QUESTION:
-User: \${message}
-
+User: ${message}
 Assistant:`;
 
         // 4. Call Gemini
