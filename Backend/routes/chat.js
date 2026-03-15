@@ -28,21 +28,23 @@ router.post('/chat', async (req, res) => {
         const lowerMessage = message.trim().toLowerCase();
         
         // GREETINGS
-        if (['hi', 'hello', 'hey', 'hi there', 'hello there', 'hii', 'hiii'].includes(lowerMessage)) {
+        if (/^(hi|hello|hey|hii|hiii|hey there|hello there)$/i.test(lowerMessage)) {
             const reply = "Hi, I’m your AI assistant. I can help you with orders, products, or returns. Feel free to ask!";
             await saveToHistory(db, sessionId, message, reply);
             return res.json({ reply, tokensUsed: 0 });
         }
 
-        // MONEY DEBITED BUT NO ORDER
-        if (lowerMessage.includes('debited') || (lowerMessage.includes('money') && lowerMessage.includes('placed'))) {
+        // MONEY DEBITED BUT NO ORDER (Catches variations like "money gone", "payment failed", "debited")
+        const debitedRegex = /(?=.*\b(debited|deducted|gone|taken|money|paid)\b)(?=.*\b(order|placed|payment|fail|not|didn't|didnt)\b)/i;
+        if (debitedRegex.test(lowerMessage)) {
             const reply = "I am sorry for the issue. I am raising a support token for you. Please contact customer care at 1-800-123-4567 and share a screenshot of your transaction ID and the payment confirmation email so we can verify and resolve this immediately.";
             await saveToHistory(db, sessionId, message, reply);
             return res.json({ reply, tokensUsed: 0 });
         }
 
-        // PRODUCT AVAILABILITY
-        if (lowerMessage.includes('available') || lowerMessage.includes('do you have') || lowerMessage.includes('is this in stock')) {
+        // PRODUCT AVAILABILITY (Handled here to prevent AI hallucination)
+        const availabilityRegex = /\b(available|stock|have|buy|purchase|inventory|item|product)\b/i;
+        if (availabilityRegex.test(lowerMessage) && !lowerMessage.includes('return') && !lowerMessage.includes('refund')) {
             const reply = "Yes, it is available. You can view the live inventory and current pricing by using the search bar at the top of our website.";
             await saveToHistory(db, sessionId, message, reply);
             return res.json({ reply, tokensUsed: 0 });
@@ -67,22 +69,21 @@ router.post('/chat', async (req, res) => {
 
         // 3. Construct Prompt
         const prompt = `
-You are an advanced, professional AI Support Assistant for an e-commerce website. Your quality and conversational abilities should match advanced AI assistants like ChatGPT.
+You are an advanced, professional AI Support Assistant for an e-commerce website.
 Your goal is to provide accurate, helpful, and polite support based ONLY on the provided knowledge base.
 
 ### KNOWLEDGE BASE:
 \${JSON.stringify(docs, null, 2)}
 
-- **GREETINGS:** If the user's message is just a greeting (e.g., "hi", "hello", "hey", "good morning"), **ONLY say hello back**. Introduce yourself as the E-commerce AI Support Assistant and ask how you can help.
-- **PRODUCT AVAILABILITY:** If a user asks if a specific product (like headphones, phones, laptops, etc.) is available, you **MUST** answer: "Yes, it is available."
-- **INTENT ACCURACY:** Carefully analyze the user's message. Do NOT provide the Return Policy unless the user specifically asks about returning or refunding an item. For payment failures or order issues, use the specific "Payment Methods & Issues" or "Money debited but order not placed" sections of the KNOWLEDGE BASE.
-- Act like an expert, friendly e-commerce customer support agent.
-- Use **ONLY** the information in the KNOWLEDGE BASE above to answer questions.
-- If the requested information is not found in the KNOWLEDGE BASE, and the user's message is NOT a greeting, you **MUST** respond politely with: "I'm sorry, but I don't have that specific information. Please contact our customer care for further assistance."
-- **RETURN POLICY:** You must strictly state that we offer a **7-day** return policy. Never mention 30 days.
-- DO NOT use any external knowledge, general intelligence, or hallucinate products, policies, or prices.
-- Provide clear, concise, and structured answers.
-- Be empathetic and professional in your tone.
+### RULES:
+- **GREETINGS:** If the user's message is just a greeting (e.g., "hi", "hello"), **ONLY say hello back**.
+- **INTENT ACCURACY:** If the user asks about returns or refunds, use the "Returns and Refunds Policy". Otherwise, if they ask about shipping or payments, use those specific sections. Never mix topics.
+- **NO HALLUCINATION:** If something (like availability of a specific model) is not mentioned, tell them to use the search bar. Never say "Yes it is available" unless the knowledge base explicitly says that specific item is in stock.
+- Act like an expert, e-commerce customer support agent.
+- If information is missing, refer them to "customer care".
+- **RETURN POLICY:** Strictly 7-day return policy. Never 30.
+- Provide clear, concise answers.
+- Be empathetic.e.
 
 ### CONVERSATION HISTORY:
 \${sortedHistory.map(m => \`\${m.role === 'user' ? 'User' : 'Assistant'}: \${m.content}\`).join('\\n')}
