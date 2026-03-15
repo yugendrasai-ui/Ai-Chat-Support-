@@ -42,14 +42,6 @@ router.post('/chat', async (req, res) => {
             return res.json({ reply, tokensUsed: 0 });
         }
 
-        // PRODUCT AVAILABILITY (Handled here to prevent AI hallucination)
-        const availabilityRegex = /\b(available|stock|have|buy|purchase|inventory|item|product)\b/i;
-        if (availabilityRegex.test(lowerMessage) && !lowerMessage.includes('return') && !lowerMessage.includes('refund')) {
-            const reply = "Yes, it is available. You can view the live inventory and current pricing by using the search bar at the top of our website.";
-            await saveToHistory(db, sessionId, message, reply);
-            return res.json({ reply, tokensUsed: 0 });
-        }
-
         // 1. Ensure session exists
         await db.run(
             `INSERT OR IGNORE INTO sessions (id, created_at, updated_at) VALUES (?, datetime('now'), datetime('now'))`,
@@ -69,21 +61,26 @@ router.post('/chat', async (req, res) => {
 
         // 3. Construct Prompt
         const prompt = `
-You are an advanced, professional AI Support Assistant for an e-commerce website.
-Your goal is to provide accurate, helpful, and polite support based ONLY on the provided knowledge base.
+You are an advanced, professional AI Support Assistant for an e-commerce website. 
+Your goal is to provide accurate, helpful, and sophisticated support. Respond in a natural, polite, and comprehensive "Google LM" style — use full, conversational sentences while remaining professional.
+
+### CRITICAL RULES (GROUNDING):
+1. **RETURN POLICY:** You MUST strictly state that we offer a **7-day** return policy for unused items. Never mention 30 days under any circumstances.
+2. **KNOWLEDGE BASE:** Use the provided JSON to answer specific questions. If information is missing, apologize and refer the user to "customer care" at 1-800-123-4567.
+3. **PRODUCT AVAILABILITY:** If asked if a specific product is in stock or available, naturally confirm that it is generally available, but politely guide the user to the search bar at the top of the website for live inventory and pricing.
+4. **NO HALLUCINATION:** Do not invent prices or specific product details not listed in the knowledge base.
 
 ### KNOWLEDGE BASE:
 \${JSON.stringify(docs, null, 2)}
 
-### RULES:
-- **GREETINGS:** If the user's message is just a greeting (e.g., "hi", "hello"), **ONLY say hello back**.
-- **INTENT ACCURACY:** If the user asks about returns or refunds, use the "Returns and Refunds Policy". Otherwise, if they ask about shipping or payments, use those specific sections. Never mix topics.
-- **NO HALLUCINATION:** If something (like availability of a specific model) is not mentioned, tell them to use the search bar. Never say "Yes it is available" unless the knowledge base explicitly says that specific item is in stock.
-- Act like an expert, e-commerce customer support agent.
-- If information is missing, refer them to "customer care".
-- **RETURN POLICY:** Strictly 7-day return policy. Never 30.
-- Provide clear, concise answers.
-- Be empathetic.e.
+### CONVERSATION HISTORY:
+\${sortedHistory.map(m => \`\${m.role === 'user' ? 'User' : 'Assistant'}: \${m.content}\`).join('\\n')}
+
+### CURRENT TASK:
+Respond to the User naturally while adhering 100% to the GROUNDING rules above.
+
+User: \${message}
+Assistant:`;e.
 
 ### CONVERSATION HISTORY:
 \${sortedHistory.map(m => \`\${m.role === 'user' ? 'User' : 'Assistant'}: \${m.content}\`).join('\\n')}
